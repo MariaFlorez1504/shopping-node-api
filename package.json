@@ -1,0 +1,29 @@
+{
+  "name": "entrega-n1",
+  "version": "1.0.0",
+  "description": "Servidor que contiene endpoint y servicios necesarios para gestionar productos y carritos de compra en un API",
+  "keywords": [
+    "Node",
+    "Javascript",
+    "CoderHouse",
+    "Aplicacion"
+  ],
+  "homepage": "https://github.com/MariaFlorez1504/shop-node-api#readme",
+  "bugs": {
+    "url": "https://github.com/MariaFlorez1504/shop-node-api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MariaFlorez1504/shop-node-api.git"
+  },
+  "license": "MIT",
+  "author": "Maria Fernanda Florez Rodriguez",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
