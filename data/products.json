@@ -1,0 +1,81 @@
+[
+  {
+    "id": 2,
+    "title": "Mouse Inalámbrico",
+    "description": "Mouse ergonómico inalámbrico con retroiluminación RGB.",
+    "code": "MOU-001",
+    "price": 50,
+    "status": true,
+    "stock": 30,
+    "category": "Accessories",
+    "thumbnails": [
+      "images/mouse1.jpg"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Teclado Mecánico",
+    "description": "Teclado mecánico con teclas programables y retroiluminación RGB.",
+    "code": "KEY-001",
+    "price": 80,
+    "status": true,
+    "stock": 20,
+    "category": "Accessories",
+    "thumbnails": [
+      "images/keyboard1.jpg"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Monitor 4K",
+    "description": "Monitor 4K de 27 pulgadas con tecnología IPS.",
+    "code": "MON-001",
+    "price": 350,
+    "status": true,
+    "stock": 10,
+    "category": "Monitors",
+    "thumbnails": [
+      "images/monitor1.jpg"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Auriculares Inalámbricos",
+    "description": "Auriculares Bluetooth con cancelación de ruido.",
+    "code": "AUR-001",
+    "price": 150,
+    "status": true,
+    "stock": 25,
+    "category": "Audio",
+    "thumbnails": [
+      "images/headphones1.jpg"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Cámara Web HD",
+    "description": "Cámara web HD para videoconferencias y streaming.",
+    "code": "CAM-001",
+    "price": 70,
+    "status": true,
+    "stock": 40,
+    "category": "Cameras",
+    "thumbnails": [
+      "images/webcam1.jpg"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Laptop Gaming",
+    "description": "Laptop de alto rendimiento para juegos.",
+    "code": "LAP-001",
+    "price": 1200,
+    "status": true,
+    "stock": 15,
+    "category": "Computers",
+    "thumbnails": [
+      "images/laptop1.jpg",
+      "images/laptop1_2.jpg"
+    ]
+  }
+]
