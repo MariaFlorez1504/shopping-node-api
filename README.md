@@ -1,40 +1,43 @@
+
 # 📦 Shopping Node API
 
-Servidor Node.js con Express, Handlebars y WebSockets para la gestión de productos y carritos de compra.  
-Proyecto académico - CoderHouse
+Servidor **Node.js** con **Express**, **Handlebars** y **WebSockets** para la gestión de productos y carritos de compra.  
+Proyecto académico
+
+---
 
 ## 🚀 Descripción
 
 Esta API RESTful permite:
 
 - Agregar, listar, modificar y eliminar **productos**.
-- Crear carritos de compra y agregarles productos.
-- Actualizar la vista de productos en **tiempo real** usando **WebSockets** y **Socket.IO**.
+- Crear **carritos de compra** y gestionar sus productos.
+- Ver la lista de productos en **tiempo real** gracias a **Socket.IO**.
 - Renderizar vistas dinámicas con **Handlebars**.
 
 ---
 
 ## 🗂️ Estructura del proyecto
 
-\`\`\`plaintext
+```plaintext
 ├── app.js              # Archivo principal
 ├── package.json
 ├── /src
-|   ├── /models
-│   |   ├── ProductManager.js
-│   |   ├── CartManager.js
+│   ├── /models
+│   │   ├── ProductManager.js
+│   │   ├── CartManager.js
 │   ├── /routes
 │   │   ├── products.js
 │   │   ├── carts.js
 │   │   ├── views.router.js
-|   ├── /tests
-│   |   ├── productManager.test.js
-│   |   ├── cartManager.test.js
+│   ├── /tests
+│   │   ├── productManager.test.js
+│   │   ├── cartManager.test.js
 │   ├── /views
 │   │   ├── home.handlebars
 │   │   ├── realTimeProducts.handlebars
 │   │   ├── layouts/
-|   |          ├── main.handlebars
+│   │   │   ├── main.handlebars
 ├── /data               
 │   ├── products.json
 │   ├── carts.json
@@ -43,31 +46,33 @@ Esta API RESTful permite:
 │   │   ├── css/
 │   │   ├── img/
 │   │   ├── js/
-\`\`\`
+```
 
 ---
 
 ## ⚙️ Instalación
 
-1. Clona el repositorio:
-   \`\`\`bash
-   git clone https://github.com/MariaFlorez1504/shopping-node-api.git
-   cd shopping-node-api
-   \`\`\`
+1️⃣ Clona el repositorio:
+```bash
+git clone https://github.com/MariaFlorez1504/shopping-node-api.git
+cd shopping-node-api
+```
 
-2. Instala las dependencias:
-   \`\`\`bash
-   npm install
-   \`\`\`
+2️⃣ Instala dependencias:
+```bash
+npm install
+```
 
-3. Ejecuta en modo desarrollo con reinicio automático:
-   \`\`\`bash
-   npm run dev
-   \`\`\`
-   o en modo producción:
-   \`\`\`bash
-   npm start
-   \`\`\`
+3️⃣ Ejecuta el servidor:
+
+- En modo desarrollo (con reinicio automático):
+  ```bash
+  npm run dev
+  ```
+- En modo producción:
+  ```bash
+  npm start
+  ```
 
 ---
 
@@ -75,44 +80,45 @@ Esta API RESTful permite:
 
 ### 📁 Productos
 
-- \`GET /api/products\` — Listar todos los productos.
-- \`GET /api/products/:pid\` — Obtener producto por ID.
-- \`POST /api/products\` — Agregar producto.
-- \`POST /api/products/bulk\` — Agregar productos en lote.
-- \`PUT /api/products/:pid\` — Actualizar producto.
-- \`DELETE /api/products/:pid\` — Eliminar producto.
+- `GET /api/products` — Listar todos los productos.
+- `GET /api/products/:pid` — Obtener producto por ID.
+- `POST /api/products` — Agregar producto.
+- `POST /api/products/bulk` — Agregar múltiples productos.
+- `PUT /api/products/:pid` — Actualizar un producto.
+- `DELETE /api/products/:pid` — Eliminar producto.
 
 ### 🛒 Carritos
 
-- \`POST /api/carts\` — Crear carrito.
-- \`GET /api/carts/:cid\` — Ver carrito por ID.
-- \`POST /api/carts/:cid/product/:pid\` — Agregar producto a carrito.
+- `POST /api/carts` — Crear nuevo carrito.
+- `GET /api/carts/:cid` — Obtener carrito por ID.
+- `POST /api/carts/:cid/product/:pid` — Agregar producto a un carrito.
 
 ---
 
 ## 💻 Vistas con Handlebars
 
-- \`GET /\` — Renderiza \`home.handlebars\` con la lista actual de productos.
-- \`GET /realtimeproducts\` — Renderiza \`realTimeProducts.handlebars\` que actualiza productos **en tiempo real** con **WebSockets**.
+- `GET /` — Renderiza `home.handlebars` con la lista de productos actual.
+- `GET /realtimeproducts` — Renderiza `realTimeProducts.handlebars` con actualización **en tiempo real** vía **WebSockets**.
 
 ---
 
 ## ⚡ WebSockets
 
-- Al agregar/eliminar productos en \`/realtimeproducts\`, la lista se actualiza en todos los clientes conectados **sin recargar** la página.
+Al agregar o eliminar productos desde `/realtimeproducts`:
+- Todos los clientes conectados ven la lista actualizada **al instante**.
+- Sin necesidad de recargar la página.
 
 ---
 
 ## 📬 Colección Postman
 
-En la carpeta \`/postmanCollection/\` encontrarás una colección lista para importar y probar todos los endpoints.
-
+En la carpeta `/postmanCollection/` encontrarás la colección lista para importar y testear todos los endpoints.
 
 ---
 
 ## 📝 Licencia
 
-Código abierto bajo licencia MIT.
+Código abierto bajo licencia **MIT**.
 
 ---
 
@@ -123,4 +129,4 @@ Código abierto bajo licencia MIT.
 
 ---
 
-> **¡Hecho con ❤️, Node.js y café ☕!**
+> **Hecho con ❤️, Node.js y café ☕**
