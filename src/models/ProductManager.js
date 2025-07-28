@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 class ProductManager {
     constructor(filePath) {
@@ -23,6 +23,7 @@ class ProductManager {
     }
 
     saveProducts() {
+        
         fs.writeFileSync(this.path, JSON.stringify(this.products, null, 2));
     }
 
@@ -54,8 +55,10 @@ class ProductManager {
     }
 
     getProducts() {
+        this.loadProducts();
         return this.products;
     }
+
 
     getProductById(id) {
         const product = this.products.find(product => product.id === id);
@@ -73,6 +76,7 @@ class ProductManager {
     }
 
     deleteProduct(id) {
+        console.log(`Eliminando producto con ID en deleteProduct: ${id}`);
         const productIndex = this.products.findIndex(product => product.id === id);
         if (productIndex === -1) {
             throw new Error('Not found');
@@ -82,4 +86,4 @@ class ProductManager {
     }
 }
 
-module.exports = ProductManager;
+export default ProductManager;

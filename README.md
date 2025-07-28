@@ -1,75 +1,132 @@
-# API de Gestión de Productos y Carritos de Compra
+# 📦 Shopping Node API
 
-## Descripción
+Servidor Node.js con Express, Handlebars y WebSockets para la gestión de productos y carritos de compra.  
+Proyecto académico - CoderHouse - Entrega N°2.
 
-Esta es una API RESTful desarrollada en Node.js y Express que permite gestionar productos y carritos de compra. La API incluye funcionalidades para agregar, consultar, modificar y eliminar productos, así como crear y gestionar carritos de compra.
+## 🚀 Descripción
 
-## Características
+Esta API RESTful permite:
 
-- **Gestión de Productos**:
-  - Agregar nuevos productos.
-  - Consultar todos los productos.
-  - Consultar un producto específico por ID.
-  - Actualizar información de un producto.
-  - Eliminar un producto.
+- Agregar, listar, modificar y eliminar **productos**.
+- Crear carritos de compra y agregarles productos.
+- Actualizar la vista de productos en **tiempo real** usando **WebSockets** y **Socket.IO**.
+- Renderizar vistas dinámicas con **Handlebars**.
 
-- **Gestión de Carritos**:
-  - Crear nuevos carritos.
-  - Consultar productos en un carrito específico.
-  - Agregar productos a un carrito, con la opción de incrementar la cantidad de productos.
+---
 
+## 🗂️ Estructura del proyecto
 
-## Instalación
+\`\`\`plaintext
+├── app.js              # Archivo principal
+├── package.json
+├── /src
+│   ├── ProductManager.js
+│   ├── CartManager.js
+│   ├── /routes
+│   │   ├── products.js
+│   │   ├── carts.js
+│   │   ├── views.router.js
+│   ├── /views
+│   │   ├── home.handlebars
+│   │   ├── realTimeProducts.handlebars
+│   │   ├── layouts/
+|   |          ├── main.handlebars
+├── /data               
+│   ├── products.json
+│   ├── carts.json
+├── /public
+│   ├── /static
+│   │   ├── css/
+│   │   ├── img/
+│   │   ├── js/
+\`\`\`
 
-1. **Clonar el repositorio**:
+---
 
-   ```bash
-   git clone https://github.com/MariaFlorez1504/shopping-node-api
+## ⚙️ Instalación
+
+1. Clona el repositorio:
+   \`\`\`bash
+   git clone https://github.com/MariaFlorez1504/shopping-node-api.git
    cd shopping-node-api
-   
-2. **Instalar dependencias**:
+   \`\`\`
 
-    ```bash
-    npm install
-3. **Iniciar el servidor**:
-   
-    ```bash
-    node app.js
-La API se ejecutará en **http://localhost:8080**
+2. Instala las dependencias:
+   \`\`\`bash
+   npm install
+   \`\`\`
 
+3. Ejecuta en modo desarrollo con reinicio automático:
+   \`\`\`bash
+   npm run dev
+   \`\`\`
+   o en modo producción:
+   \`\`\`bash
+   npm start
+   \`\`\`
 
-## Uso de la Colección de Postman
+---
 
+## 📌 Endpoints REST
 
-En la carpeta postmanCollection, encontrarás una colección de Postman que incluye todos los endpoints disponibles en la API. Para usarla:
+### ✅ Productos
 
-1. Abre Postman.
-2. Importa la colección desde el archivo Postman_Collection.json.
-3. Realiza las pruebas de los endpoints según lo requieras.
+- \`GET /api/products\` — Listar todos los productos.
+- \`GET /api/products/:pid\` — Obtener producto por ID.
+- \`POST /api/products\` — Agregar producto.
+- \`POST /api/products/bulk\` — Agregar productos en lote.
+- \`PUT /api/products/:pid\` — Actualizar producto.
+- \`DELETE /api/products/:pid\` — Eliminar producto.
 
-   
-## Endpoints
+### ✅ Carritos
 
-**Productos**
+- \`POST /api/carts\` — Crear carrito.
+- \`GET /api/carts/:cid\` — Ver carrito por ID.
+- \`POST /api/carts/:cid/product/:pid\` — Agregar producto a carrito.
 
-1. GET /api/products: Listar todos los productos.
-2. GET /api/products/:pid: Obtener un producto específico por ID.
-3. POST /api/products: Agregar un nuevo producto.
-4. POST /api/products/bulk: Agregar múltiples productos.
-5. PUT /api/products/:pid: Actualizar un producto por ID.
-6. DELETE /api/products/:pid: Eliminar un producto por ID.
+---
 
+## 💻 Vistas con Handlebars
 
-**Carritos**
+- \`GET /\` — Renderiza \`home.handlebars\` con la lista actual de productos.
+- \`GET /realtimeproducts\` — Renderiza \`realTimeProducts.handlebars\` que actualiza productos **en tiempo real** con **WebSockets**.
 
-1. POST /api/carts: Crear un nuevo carrito.
-2. GET /api/carts/:cid: Listar productos en un carrito específico.
-3. POST /api/carts/:cid/product/:pid: Agregar un producto a un carrito.
+---
 
+## ⚡ WebSockets
 
-## Contacto
-Para más información, no dudes en contactar a mafe.florez1504@gmail.com
+- Al agregar/eliminar productos en \`/realtimeproducts\`, la lista se actualiza en todos los clientes conectados **sin recargar** la página.
 
+---
 
+## 📬 Colección Postman
 
+En la carpeta \`/postmanCollection/\` encontrarás una colección lista para importar y probar todos los endpoints.
 
+---
+
+## 👩‍💻 Contribución
+
+¿Quieres contribuir? ¡Perfecto!
+1. Haz un fork 🍴
+2. Crea tu rama: \`git checkout -b feature/nueva-funcionalidad\`
+3. Haz commit de tus cambios: \`git commit -m 'Add nueva funcionalidad'\`
+4. Haz push a tu rama: \`git push origin feature/nueva-funcionalidad\`
+5. Abre un Pull Request 🚀
+
+---
+
+## 📝 Licencia
+
+Código abierto bajo licencia MIT.
+
+---
+
+## 📫 Contacto
+
+**Maria Fernanda Florez Rodriguez**  
+📧 [mafe.florez1504@gmail.com](mailto:mafe.florez1504@gmail.com)
+
+---
+
+> **¡Hecho con ❤️ y café!**
