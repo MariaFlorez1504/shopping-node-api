@@ -1,0 +1,141 @@
+/* =======================================================
+   ESTILOS GENERALES
+   ======================================================= */
+
+body {
+  font-family: Arial, sans-serif;
+  background: url('/static/img/fondo-claro.png') no-repeat center center fixed;
+  background-size: cover;
+  background-blend-mode: lighten; /* Suaviza marca de agua */
+  color: #ECF0F1;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+/* =======================================================
+   ENCABEZADO CON LOGO
+   ======================================================= */
+
+header {
+  background-color: rgba(44, 62, 80, 0.7);
+  backdrop-filter: blur(5px);
+  background-image: url('/static/img/logo.png');
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 150px;
+  padding: 15px 30px 15px 180px; /* Espacio para logo a la izquierda */
+  border-radius: 5px;
+}
+
+header img {
+  width: 150px;
+}
+
+h1, h2 {
+  color: #FFFFFF;
+  margin-top: 20px;
+}
+
+/* =======================================================
+   CONTENEDOR PRINCIPAL (formulario + lista)
+   Limita ancho máximo y alinea todo a la izquierda
+   ======================================================= */
+
+.content {
+  max-width: 500px; /* Controla ancho general */
+}
+
+.no-products {
+  font-style: italic;
+  color: #555;
+  margin-top: 1rem;
+}
+
+/* =======================================================
+   FORMULARIO
+   ======================================================= */
+
+form {
+  margin: 20px 0;
+}
+
+input[type="text"],
+input[type="number"] {
+  padding: 10px;
+  border: 1px solid #BDC3C7;
+  border-radius: 5px;
+  width: calc(100% - 22px); /* Ajusta ancho menos padding/border */
+  color: #34495E;
+  margin-bottom: 10px; /* Espacio entre campos */
+}
+
+/* Botón del formulario */
+button {
+  background-color: #1ABC9C;
+  color: #FFFFFF;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #16A085;
+}
+
+/* =======================================================
+   BOTONES DE NAVEGACIÓN (nav)
+   ======================================================= */
+
+nav a.btn {
+  background-color: #1ABC9C;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+nav a.btn:hover {
+  background-color: #16A085;
+}
+
+/* =======================================================
+   LISTA DE PRODUCTOS
+   ======================================================= */
+
+#productList {
+  list-style-type: none;
+  padding: 0;
+  max-width: 500px; /* Igual que el contenedor, mantiene alineación */
+}
+
+#productList li {
+  display: flex;                  /* Flex para separar texto y botón */
+  justify-content: space-between; /* Espacio entre texto y botón */
+  align-items: center;            /* Centra verticalmente */
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semi opaco */
+  color: #34495E;                 /* Texto oscuro */
+  border: 1px solid #BDC3C7;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0 0 10px 0;            
+}
+
+/* Botón de eliminar dentro de cada item */
+#productList button {
+  margin-left: 15px; /* Espacio entre texto y botón */
+}
+
+/* =======================================================
+   FOOTER
+   ======================================================= */
+
+footer {
+  text-align: left;
+  color: #34495E;
+  margin-top: 40px;
+  font-size: 0.9em;
+}
+
+

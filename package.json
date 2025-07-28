@@ -1,29 +1,42 @@
 {
-  "name": "entrega-n1",
+  "name": "shopping-node-api",
   "version": "1.0.0",
-  "description": "Servidor que contiene endpoint y servicios necesarios para gestionar productos y carritos de compra en un API",
+  "description": "Servidor Node.js para gestionar productos y carritos de compra usando Express, Handlebars y WebSockets.",
   "keywords": [
     "Node",
-    "Javascript",
+    "JavaScript",
     "CoderHouse",
-    "Aplicacion"
+    "API",
+    "Shopping",
+    "Handlebars",
+    "WebSockets"
   ],
-  "homepage": "https://github.com/MariaFlorez1504/shop-node-api#readme",
+  "homepage": "https://github.com/MariaFlorez1504/shopping-node-api#readme",
   "bugs": {
-    "url": "https://github.com/MariaFlorez1504/shop-node-api/issues"
+    "url": "https://github.com/MariaFlorez1504/shopping-node-api/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MariaFlorez1504/shop-node-api.git"
+    "url": "git+https://github.com/MariaFlorez1504/shopping-node-api.git"
   },
   "license": "MIT",
   "author": "Maria Fernanda Florez Rodriguez",
-  "type": "commonjs",
+  "type": "module",
   "main": "app.js",
   "scripts": {
-    "test": "node app.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "bootstrap": "^5.3.7",
+    "express": "^5.1.0",
+    "express-handlebars": "^8.0.3",
+    "socket.io": "^4.8.1",
+    "sweetalert2": "^11.22.2"
+  },
+  "devDependencies": {
+    "jest": "^30.0.5",
+    "nodemon": "^3.0.0"
   }
 }

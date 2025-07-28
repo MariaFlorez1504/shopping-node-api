@@ -1,38 +1,97 @@
-const path = require('path');
-const fs = require('fs');
-const express = require('express');
+import path from 'path';
+import fs from 'fs';
+import express from 'express';
+import http from 'http';
+import { Server } from 'socket.io';
+import { engine } from 'express-handlebars';
+import { dirname } from 'path';
+import ProductManager from './src/models/ProductManager.js';
+import CartManager from './src/models/CartManager.js';
+import viewsRouter from './src/routes/views.router.js';
+import productRoutes from './src/routes/products.js'; 
+import cartRoutes from './src/routes/carts.js'; 
+
+// Obtener el equivalente de __dirname en ESM
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-const ProductManager = require('./src/ProductManager');
-const CartManager = require('./src/CartManager');
-
-const productRoutes = require('./src/routes/products');
-const cartRoutes = require('./src/routes/carts');
-
 const dataPath = path.join(__dirname, 'data');
+const productManager = new ProductManager('./data/products.json');
 
-// crear la carpeta si no existe
-if(!fs.existsSync(dataPath)){
-    fs.mkdirSync(dataPath);
+// Crear la carpeta data si no existe
+if (!fs.existsSync(dataPath)) {
+  fs.mkdirSync(dataPath);
+}
 
-};
-
-
-// Esto permite a la aplicacion recibir solicitudes en formato JSON
+// Middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/static', express.static(path.join(__dirname, 'public')));
 
+// Configurar Handlebars
+app.engine('handlebars', engine({ extname: '.handlebars' }));
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, 'src', 'views'));
 
-app.get('/', (req, res) => {
-    res.send("<h1>Welcome to the Shopping Cart API</h1>");
-})
+// Crear servidor HTTP + socket
+const server = http.createServer(app);
+const io = new Server(server);
 
+// Rutas
+app.use('/', viewsRouter);
+app.use('/api/products', productRoutes(io));
+app.use('/api/carts', cartRoutes(io));
 
-// Usar las rutas de productos y carritos
-app.use('/api/products', productRoutes);
-app.use('/api/carts', cartRoutes);
+// Página 404
+app.use((req, res) => {
+  res.status(404).render('404', { title: '404 - Página no encontrada' });
+});
 
-// Iniciar el servidor
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+// Configurar WebSocket
+io.on('connection', (socket) => {
+  console.log('✅ Nuevo cliente conectado vía WebSocket');
+
+  socket.on('newProduct', (productData) => {
+    // Validación básica
+    if (!productData.title || typeof productData.title !== 'string') {
+      console.log('❌ Título inválido al crear producto vía WebSocket');
+      return;
+    }
+    if (isNaN(productData.price) || productData.price <= 0) {
+      console.log('❌ Precio inválido al crear producto vía WebSocket');
+      return;
+    }
+
+    const newProduct = productManager.addProduct({
+      ...productData,
+      description: "Sin descripción",
+      code: `code-${Date.now()}`,
+      status: true,
+      stock: 10,
+      category: "General",
+      thumbnails: []
+    });
+
+    console.log(`✅ Producto creado: ${newProduct.title} (${newProduct.id})`);
+    io.emit('updateProducts', newProduct);
+  });
+
+  socket.on('deleteProduct', (productId) => {
+    const deleted = productManager.deleteProduct(parseInt(productId));
+    if (deleted) {
+      console.log(`🗑️ Producto eliminado (ID: ${productId})`);
+      io.emit('removeProduct', productId);
+    } else {
+      console.log(`⚠️ Intento de eliminar producto no existente (ID: ${productId})`);
+    }
+  });
+});
+
+// Iniciar servidor
+server.listen(PORT, () => {
+  console.log(`🚀 Servidor corriendo en: http://localhost:${PORT}`);
 });
