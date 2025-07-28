@@ -46,6 +46,12 @@ h1, h2 {
   max-width: 500px; /* Controla ancho general */
 }
 
+.no-products {
+  font-style: italic;
+  color: #555;
+  margin-top: 1rem;
+}
+
 /* =======================================================
    FORMULARIO
    ======================================================= */
@@ -131,3 +137,5 @@ footer {
   margin-top: 40px;
   font-size: 0.9em;
 }
+
+

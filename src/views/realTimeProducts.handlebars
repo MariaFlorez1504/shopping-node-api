@@ -11,25 +11,33 @@
 
         <h1>Agregar Producto</h1>
         <form id="productForm">
-            <input type="text" id="title" placeholder="Título" required>
-            <input type="number" id="price" placeholder="Precio" required>
-            <button type="submit">Agregar Producto</button>
+            <input type="text" id="title" placeholder="Título" />
+            <small id="titleError" style="color:red; display:none;">Título requerido</small>
+            <input type="number" id="price" placeholder="Precio" />
+            <small id="priceError" style="color:red; display:none;">Precio inválido</small>
+            <button id="addProductBtn" type="submit" disabled>Agregar Producto</button>
         </form>
 
         <h2>Lista de Productos</h2>
+
+        {{#if products.length}}
         <ul id="productList">
             {{#each products}}
-                <li data-id="{{this.id}}">
-                    {{this.title}} - Precio: {{this.price}}
-                    <button class="deleteBtn">Eliminar</button> <!-- Botón para eliminar -->
-                </li>
+            <li data-id="{{this.id}}">
+                {{this.title}} - Precio: {{this.price}}
+                <button class="deleteBtn">Eliminar</button>
+            </li>
             {{/each}}
         </ul>
+        {{else}}
+        <p class="no-products">No hay productos en el inventario.</p>
+        {{/if}}
+
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-    </script>
-    <script src="/static/js/realTimeProducts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/static/js/shared/validations.js"></script>
+    <script src="/static/js/pages/realTimeProducts.js"></script>
 </body>
 </html>

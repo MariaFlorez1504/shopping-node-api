@@ -9,11 +9,20 @@
 </head>
 <body>
 
-    <ul id="productList">
-        {{#each products}}
-            <li>{{this.title}} - Precio: {{this.price}}</li>
-        {{/each}}
-    </ul>
+    <div class="content">
+        <h2>Lista de Productos</h2>
+
+        {{#if products.length}}
+            <ul id="productList">
+            {{#each products}}
+                <li>{{this.title}} - Precio: {{this.price}}</li>
+            {{/each}}
+            </ul>
+        {{else}}
+            <p class="no-products">No hay productos en el inventario.</p>
+        {{/if}}
+    </div>
+
 
 
 </body>

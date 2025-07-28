@@ -1,7 +1,7 @@
 # 📦 Shopping Node API
 
 Servidor Node.js con Express, Handlebars y WebSockets para la gestión de productos y carritos de compra.  
-Proyecto académico - CoderHouse - Entrega N°2.
+Proyecto académico - CoderHouse
 
 ## 🚀 Descripción
 
@@ -20,12 +20,16 @@ Esta API RESTful permite:
 ├── app.js              # Archivo principal
 ├── package.json
 ├── /src
-│   ├── ProductManager.js
-│   ├── CartManager.js
+|   ├── /models
+│   |   ├── ProductManager.js
+│   |   ├── CartManager.js
 │   ├── /routes
 │   │   ├── products.js
 │   │   ├── carts.js
 │   │   ├── views.router.js
+|   ├── /tests
+│   |   ├── productManager.test.js
+│   |   ├── cartManager.test.js
 │   ├── /views
 │   │   ├── home.handlebars
 │   │   ├── realTimeProducts.handlebars
@@ -69,7 +73,7 @@ Esta API RESTful permite:
 
 ## 📌 Endpoints REST
 
-### ✅ Productos
+### 📁 Productos
 
 - \`GET /api/products\` — Listar todos los productos.
 - \`GET /api/products/:pid\` — Obtener producto por ID.
@@ -78,7 +82,7 @@ Esta API RESTful permite:
 - \`PUT /api/products/:pid\` — Actualizar producto.
 - \`DELETE /api/products/:pid\` — Eliminar producto.
 
-### ✅ Carritos
+### 🛒 Carritos
 
 - \`POST /api/carts\` — Crear carrito.
 - \`GET /api/carts/:cid\` — Ver carrito por ID.
@@ -103,16 +107,6 @@ Esta API RESTful permite:
 
 En la carpeta \`/postmanCollection/\` encontrarás una colección lista para importar y probar todos los endpoints.
 
----
-
-## 👩‍💻 Contribución
-
-¿Quieres contribuir? ¡Perfecto!
-1. Haz un fork 🍴
-2. Crea tu rama: \`git checkout -b feature/nueva-funcionalidad\`
-3. Haz commit de tus cambios: \`git commit -m 'Add nueva funcionalidad'\`
-4. Haz push a tu rama: \`git push origin feature/nueva-funcionalidad\`
-5. Abre un Pull Request 🚀
 
 ---
 
@@ -129,4 +123,4 @@ Código abierto bajo licencia MIT.
 
 ---
 
-> **¡Hecho con ❤️ y café!**
+> **¡Hecho con ❤️, Node.js y café ☕!**

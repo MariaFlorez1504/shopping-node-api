@@ -6,7 +6,6 @@ import { Server } from 'socket.io';
 import { engine } from 'express-handlebars';
 import { dirname } from 'path';
 import ProductManager from './src/models/ProductManager.js';
-
 import CartManager from './src/models/CartManager.js';
 import viewsRouter from './src/routes/views.router.js';
 import productRoutes from './src/routes/products.js'; 
@@ -21,66 +20,78 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 
 const dataPath = path.join(__dirname, 'data');
-
 const productManager = new ProductManager('./data/products.json');
 
-// Crear la carpeta si no existe
+// Crear la carpeta data si no existe
 if (!fs.existsSync(dataPath)) {
-    fs.mkdirSync(dataPath);
+  fs.mkdirSync(dataPath);
 }
 
-// Middleware para procesar JSON y formularios
+// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/static', express.static(path.join(__dirname, 'public'))); // Para archivos estáticos
+app.use('/static', express.static(path.join(__dirname, 'public')));
 
-// Configurar Handlebars como motor de plantillas
+// Configurar Handlebars
 app.engine('handlebars', engine({ extname: '.handlebars' }));
 app.set('view engine', 'handlebars');
-app.set('views', path.join(__dirname, 'src','views')); // Ruta a las vistas
+app.set('views', path.join(__dirname, 'src', 'views'));
 
-// Crear un servidor HTTP y configurar Socket.IO
+// Crear servidor HTTP + socket
 const server = http.createServer(app);
 const io = new Server(server);
 
-// Monta el router de vistas
+// Rutas
 app.use('/', viewsRouter);
+app.use('/api/products', productRoutes(io));
+app.use('/api/carts', cartRoutes(io));
 
-// Usar las rutas de productos y carritos
-app.use('/api/products', productRoutes(io)); // Pasar io a las rutas
-app.use('/api/carts', cartRoutes(io)); // Pasar io a las rutas
-
-
+// Página 404
 app.use((req, res) => {
-    res.status(404).render('404', { title: '404 - Página no encontrada' });
+  res.status(404).render('404', { title: '404 - Página no encontrada' });
 });
 
 // Configurar WebSocket
 io.on('connection', (socket) => {
-    console.log('Nuevo cliente conectado');
+  console.log('✅ Nuevo cliente conectado vía WebSocket');
 
-    // Crear producto (guardado real)
   socket.on('newProduct', (productData) => {
+    // Validación básica
+    if (!productData.title || typeof productData.title !== 'string') {
+      console.log('❌ Título inválido al crear producto vía WebSocket');
+      return;
+    }
+    if (isNaN(productData.price) || productData.price <= 0) {
+      console.log('❌ Precio inválido al crear producto vía WebSocket');
+      return;
+    }
+
     const newProduct = productManager.addProduct({
       ...productData,
-      description: "Sin descripción", // añade campos requeridos si no los recibes del front
+      description: "Sin descripción",
       code: `code-${Date.now()}`,
       status: true,
       stock: 10,
       category: "General",
       thumbnails: []
     });
+
+    console.log(`✅ Producto creado: ${newProduct.title} (${newProduct.id})`);
     io.emit('updateProducts', newProduct);
   });
 
-    // Eliminar producto (guardado real)
-    socket.on('deleteProduct', (productId) => {
-        productManager.deleteProduct(parseInt(productId));
-        io.emit('removeProduct', productId);
-    });
+  socket.on('deleteProduct', (productId) => {
+    const deleted = productManager.deleteProduct(parseInt(productId));
+    if (deleted) {
+      console.log(`🗑️ Producto eliminado (ID: ${productId})`);
+      io.emit('removeProduct', productId);
+    } else {
+      console.log(`⚠️ Intento de eliminar producto no existente (ID: ${productId})`);
+    }
+  });
 });
 
-// Iniciar el servidor
+// Iniciar servidor
 server.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`🚀 Servidor corriendo en: http://localhost:${PORT}`);
 });
