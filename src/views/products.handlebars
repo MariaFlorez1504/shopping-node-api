@@ -54,8 +54,6 @@
 </div>
 
 <script>
-  // ID dinámico del carrito, pasado desde el backend
-  const cartId = "{{cartId}}"; 
 
   // Filtros
   document.getElementById("filterForm").addEventListener("submit", function(e) {
@@ -64,7 +62,7 @@
     
     let params = [];
     if (formData.get("query")) params.push("query=" + encodeURIComponent(formData.get("query")));
-    if (formData.get("queryStatus")) params.push("queryStatus=" + formData.get("queryStatus"));
+    if (formData.get("queryStatus")) params.push("query=" + formData.get("queryStatus"));
     if (formData.get("sort")) params.push("sort=" + formData.get("sort"));
     if (formData.get("limit")) params.push("limit=" + formData.get("limit"));
 
@@ -75,8 +73,9 @@
   document.querySelectorAll(".add-to-cart").forEach(button => {
     button.addEventListener("click", async () => {
       const productId = button.getAttribute("data-id");
+      const cartId = localStorage.getItem('cartId') || "{{cartId}}"; // ID del carrito
       try {
-        const res = await fetch(`/api/carts/${cartId}/products/${productId}`, {
+        const res = await fetch(`/api/carts/${cartId}/product/${productId}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ quantity: 1 })

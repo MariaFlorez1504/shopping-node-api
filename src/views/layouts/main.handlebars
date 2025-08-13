@@ -9,18 +9,44 @@
     <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <header>
-        <h1>Express • Handlebars</h1>
-        <nav>
-            <a href="/" class="btn">Inicio</a>
-            <a href="/realtimeproducts" class="btn">Productos en Tiempo Real</a> <!-- Enlace estilizado como botón -->
-        </nav>
-    </header>
+  <header>
+    <h2>NERDYCAT</h2>
+    <nav>
+      <a href="/products">Productos</a> |
+      <a href="/realtimeproducts">Tiempo Real</a>
+    </nav>
+  </header>
 
+  <main class="content">
     {{{body}}}
+  </main>
 
-    <footer>
-        ©2025 NerdyCat Store — Todos los derechos reservados.
-    </footer>
+  <footer>
+    <small>© 2025 NerdyCat</small>
+  </footer>
+
+  <script>
+    // Inicializa un cartId de ejemplo si no existe (solo para pruebas)
+    (async function() {
+      if (!localStorage.getItem('cartId')) {
+        try {
+          const res = await fetch(`/api/carts`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" }
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            localStorage.setItem('cartId', data.payload._id); // Guarda el cartId
+            console.log("Carrito creado:", data.id);
+          } else {
+            alert("❌ Error al crear el carrito");
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    })();
+  </script>
 </body>
 </html>
