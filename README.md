@@ -1,9 +1,13 @@
 
 # 📦 Shopping Node API
 
-Servidor **Node.js** con **Express**, **Handlebars** y **WebSockets** para la gestión de productos y carritos de compra.  
-Proyecto académico
+API RESTful para la gestión de productos y carritos de compra, desarrollada con Node.js, Express y MongoDB.
+Incluye paginación, filtrado, ordenamiento y vistas renderizadas con Handlebars.
 
+## 📌 Base URL
+Por defecto, la API apunta a:
+
+http://localhost:8080
 ---
 
 ## 🚀 Descripción
@@ -21,31 +25,47 @@ Esta API RESTful permite:
 
 ```plaintext
 ├── app.js              # Archivo principal
-├── package.json
-├── /src
-│   ├── /models
-│   │   ├── ProductManager.js
+├── postmanCollection/
+│   └── SHOPPING CART API.postman_collection.json   # Colección de Postman
+│
+├── public/                                         # Archivos estáticos
+│   ├── bootstrap/
+│   ├── css/
+│   ├── img/
+│   └── js/
+│
+├── src/
+│   ├── config/
+│   │   └── mongo.config.js                         # Configuración de conexión MongoDB
+│   ├── controllers/
+│   │   ├── carts.controller.js
+│   │   └── products.controller.js
+│   ├── models/
+│   │   ├── Cart.model.js
 │   │   ├── CartManager.js
-│   ├── /routes
-│   │   ├── products.js
-│   │   ├── carts.js
-│   │   ├── views.router.js
-│   ├── /tests
-│   │   ├── productManager.test.js
-│   │   ├── cartManager.test.js
-│   ├── /views
-│   │   ├── home.handlebars
-│   │   ├── realTimeProducts.handlebars
-│   │   ├── layouts/
-│   │   │   ├── main.handlebars
-├── /data               
-│   ├── products.json
-│   ├── carts.json
-├── /public
-│   ├── /static
-│   │   ├── css/
-│   │   ├── img/
-│   │   ├── js/
+│   │   ├── Product.model.js
+│   │   └── ProductManager.js
+│   ├── routes/
+│   │   ├── carts.routes.js
+│   │   ├── products.routes.js
+│   │   └── views.router.js
+│   ├── services/
+│   │   ├── carts.service.js
+│   │   └── products.service.js
+│   ├── tests/
+│   │   ├── CartManager.test.js
+│   │   └── productManager.test.js
+│   └── views/
+│       ├── layouts/
+│       │   ├── main.handlebars
+│       │   ├── 404.handlebars
+│       │   ├── cart.handlebars
+│       │   ├── home.handlebars
+│       │   ├── products.handlebars
+│       │   └── realTimeProducts.handlebars
+│
+├── README.md
+└── .env
 ```
 
 ---
@@ -80,18 +100,26 @@ npm install
 
 ### 📁 Productos
 
-- `GET /api/products` — Listar todos los productos.
-- `GET /api/products/:pid` — Obtener producto por ID.
-- `POST /api/products` — Agregar producto.
-- `POST /api/products/bulk` — Agregar múltiples productos.
-- `PUT /api/products/:pid` — Actualizar un producto.
-- `DELETE /api/products/:pid` — Eliminar producto.
+| Método | Ruta                                               | Descripción                                       |
+|--------|----------------------------------------------------|---------------------------------------------------|
+| POST   | `/api/products`                                    | Crea un nuevo producto                            |
+| GET    | `/api/products?page={n}&limit={m}&sort={y}`           | Obtiene todos los productos con paginación y orden|
+| GET    | `/api/products/{productId}`                        | Obtiene un producto por ID                        |
+| PUT    | `/api/products/{productId}`                        | Actualiza los datos de un producto                |
+| DELETE | `/api/products/{productId}`                        | Elimina un producto                               |
+| POST   | `/api/products/bulk`                               | Crea múltiples productos en lote                  |
 
 ### 🛒 Carritos
 
-- `POST /api/carts` — Crear nuevo carrito.
-- `GET /api/carts/:cid` — Obtener carrito por ID.
-- `POST /api/carts/:cid/product/:pid` — Agregar producto a un carrito.
+| Método | Ruta                                                            | Descripción                                      |
+|--------|------------------------------------------------------------------|--------------------------------------------------|
+| POST   | `/api/carts`                                                     | Crea un nuevo carrito                            |
+| GET    | `/api/carts/{cartId}`                                            | Obtiene un carrito por ID                        |
+| POST   | `/api/carts/{cartId}/product/{productId}`                        | Agrega un producto al carrito                    |
+| PUT    | `/api/carts/{cartId}/products/{productId}`                       | Actualiza la cantidad de un producto en el carrito|
+| DELETE | `/api/carts/{cartId}/products/{productId}`                       | Elimina un producto del carrito                  |
+| DELETE | `/api/carts/{cartId}`                                            | Vacía el carrito                                 |
+
 
 ---
 
