@@ -1,0 +1,112 @@
+<h1>🛒 Carrito</h1>
+
+<!-- Lista de productos -->
+{{#if products.length}}
+  <table border="1" cellpadding="10" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Precio</th>
+        <th>Cantidad</th>
+        <th>Total</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each products}}
+        <tr>
+          <td>{{this.product.title}}</td>
+          <td>${{this.product.price}}</td>
+          <td>
+            <input type="number" min="1" value="{{this.quantity}}" data-id="{{this.product._id}}" class="update-qty" style="width: 60px;">
+          </td>
+          <td>${{multiply this.product.price this.quantity}}</td>
+          <td>
+            <button class="remove-product" data-id="{{this.product._id}}">❌ Eliminar</button>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <br>
+  <button id="emptyCart">🗑 Vaciar carrito</button>
+
+{{else}}
+  <p>No hay productos en el carrito</p>
+{{/if}}
+
+<script>
+  const cartId = "{{cartId}}"; // Pasado desde backend
+
+  // Actualizar cantidad
+  document.querySelectorAll(".update-qty").forEach(input => {
+    input.addEventListener("change", async () => {
+      const pid = input.getAttribute("data-id");
+      const quantity = parseInt(input.value);
+
+      if (quantity <= 0) {
+        alert("La cantidad debe ser mayor a 0");
+        input.value = 1;
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/carts/${cartId}/products/${pid}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ quantity })
+        });
+
+        if (res.ok) {
+          alert("✅ Cantidad actualizada");
+          location.reload();
+        } else {
+          alert("❌ Error al actualizar cantidad");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  });
+
+  // Eliminar producto
+  document.querySelectorAll(".remove-product").forEach(button => {
+    button.addEventListener("click", async () => {
+      const pid = button.getAttribute("data-id");
+
+      try {
+        const res = await fetch(`/api/carts/${cartId}/products/${pid}`, {
+          method: "DELETE"
+        });
+
+        if (res.ok) {
+          alert("🗑 Producto eliminado");
+          location.reload();
+        } else {
+          alert("❌ Error al eliminar producto");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  });
+
+  // Vaciar carrito
+  document.getElementById("emptyCart")?.addEventListener("click", async () => {
+    if (!confirm("¿Seguro que quieres vaciar el carrito?")) return;
+
+    try {
+      const res = await fetch(`/api/carts/${cartId}`, { method: "DELETE" });
+
+      if (res.ok) {
+        alert("🗑 Carrito vaciado");
+        location.reload();
+      } else {
+        alert("❌ Error al vaciar carrito");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  });
+</script>

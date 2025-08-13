@@ -1,35 +1,33 @@
 {
 	"info": {
-		"_postman_id": "a6920a12-96ab-4340-b9ad-863a0d4796a7",
-		"name": "SHOPPING CART API",
+		"_postman_id": "d674d47e-b897-4744-92b2-335eea756e3c",
+		"name": "Shopping Cart API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "15322097"
 	},
 	"item": [
 		{
-			"name": "API products",
+			"name": "API Products",
 			"item": [
 				{
-					"name": "api/products",
+					"name": "Create Product",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Laptop\",\r\n    \"description\": \"Laptop gaming de alta gama\",\r\n    \"code\": \"LAP123\",\r\n    \"price\": 1500.00,\r\n    \"status\": true,\r\n    \"stock\": 10,\r\n    \"category\": \"Electronics\",\r\n    \"thumbnails\": [\r\n        \"ruta/a/la/imagen1.jpg\",\r\n        \"ruta/a/la/imagen2.jpg\"\r\n    ]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n    \"title\": \"Laptop Gaming test\",\n    \"description\": \"Laptop de alto rendimiento para juegos.\",\n    \"code\": \"LAP-999\",\n    \"price\": 1200.00,\n    \"status\": true,\n    \"stock\": 15,\n    \"category\": \"Computers\",\n    \"thumbnails\": [\"images/laptop999.jpg\"]\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/products",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/products",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"products"
@@ -39,118 +37,122 @@
 					"response": []
 				},
 				{
-					"name": "api/products",
+					"name": "Get All Products",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/products",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/products?page=2&limit=10&sort=asc",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sort",
+									"value": "asc"
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "api/products/:pid",
+					"name": "Get Product by ID",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/products/1",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/products/{{productId}}",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"products",
-								"1"
+								"{{productId}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "/api/products/:pid",
+					"name": "Update Product",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"price\": 1400.00,\r\n    \"stock\": 8\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n  \"price\": 120\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/products/1",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/products/{{productId}}",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"products",
-								"1"
+								"{{productId}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "/api/products/:pid",
+					"name": "Delete Product",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/products/1",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/products/{{productId}}",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"products",
-								"1"
+								"{{productId}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "api/products/bulk",
+					"name": "Bulk Create Products",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"title\": \"Laptop Gaming\",\r\n        \"description\": \"Laptop de alto rendimiento para juegos.\",\r\n        \"code\": \"LAP-001\",\r\n        \"price\": 1200.00,\r\n        \"status\": true,\r\n        \"stock\": 15,\r\n        \"category\": \"Computers\",\r\n        \"thumbnails\": [\r\n            \"images/laptop1.jpg\",\r\n            \"images/laptop1_2.jpg\"\r\n        ]\r\n    },\r\n    {\r\n        \"title\": \"Mouse Inalámbrico\",\r\n        \"description\": \"Mouse ergonómico inalámbrico con retroiluminación RGB.\",\r\n        \"code\": \"MOU-001\",\r\n        \"price\": 50.00,\r\n        \"status\": true,\r\n        \"stock\": 30,\r\n        \"category\": \"Accessories\",\r\n        \"thumbnails\": [\r\n            \"images/mouse1.jpg\"\r\n        ]\r\n    }\r\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "[\n  {\n    \"title\": \"Laptop Gaming\",\n    \"description\": \"Laptop de alto rendimiento para juegos.\",\n    \"code\": \"LAP-001\",\n    \"price\": 1200.00,\n    \"status\": true,\n    \"stock\": 15,\n    \"category\": \"Computers\",\n    \"thumbnails\": [\"images/laptop1.jpg\"]\n  },\n  {\n    \"title\": \"Mouse Inalámbrico\",\n    \"description\": \"Mouse ergonómico inalámbrico con retroiluminación RGB.\",\n    \"code\": \"MOU-001\",\n    \"price\": 50.00,\n    \"status\": true,\n    \"stock\": 30,\n    \"category\": \"Accessories\",\n    \"thumbnails\": [\"images/mouse1.jpg\"]\n  },\n  {\n    \"title\": \"Teclado Mecánico\",\n    \"description\": \"Teclado mecánico con teclas programables y retroiluminación RGB.\",\n    \"code\": \"KEY-001\",\n    \"price\": 80.00,\n    \"status\": true,\n    \"stock\": 20,\n    \"category\": \"Accessories\",\n    \"thumbnails\": [\"images/keyboard1.jpg\"]\n  },\n  {\n    \"title\": \"Monitor 27 pulgadas\",\n    \"description\": \"Monitor Full HD de 27 pulgadas con panel IPS.\",\n    \"code\": \"MON-001\",\n    \"price\": 250.00,\n    \"status\": true,\n    \"stock\": 10,\n    \"category\": \"Monitors\",\n    \"thumbnails\": [\"images/monitor1.jpg\"]\n  },\n  {\n    \"title\": \"Silla Gamer\",\n    \"description\": \"Silla ergonómica para largas sesiones de juego.\",\n    \"code\": \"CHA-001\",\n    \"price\": 180.00,\n    \"status\": true,\n    \"stock\": 8,\n    \"category\": \"Furniture\",\n    \"thumbnails\": [\"images/chair1.jpg\"]\n  },\n  {\n    \"title\": \"Disco Duro 1TB\",\n    \"description\": \"Disco duro externo de 1TB USB 3.0.\",\n    \"code\": \"HDD-001\",\n    \"price\": 60.00,\n    \"status\": true,\n    \"stock\": 25,\n    \"category\": \"Storage\",\n    \"thumbnails\": [\"images/hdd1.jpg\"]\n  },\n  {\n    \"title\": \"Memoria RAM 16GB\",\n    \"description\": \"Módulo de memoria DDR4 3200MHz de 16GB.\",\n    \"code\": \"RAM-001\",\n    \"price\": 75.00,\n    \"status\": true,\n    \"stock\": 50,\n    \"category\": \"Components\",\n    \"thumbnails\": [\"images/ram1.jpg\"]\n  },\n  {\n    \"title\": \"Tarjeta Gráfica RTX 3060\",\n    \"description\": \"GPU NVIDIA RTX 3060 de 12GB GDDR6.\",\n    \"code\": \"GPU-001\",\n    \"price\": 450.00,\n    \"status\": true,\n    \"stock\": 12,\n    \"category\": \"Components\",\n    \"thumbnails\": [\"images/gpu1.jpg\"]\n  },\n  {\n    \"title\": \"Fuente de Poder 650W\",\n    \"description\": \"Fuente de poder certificada 80 Plus Bronze.\",\n    \"code\": \"PSU-001\",\n    \"price\": 65.00,\n    \"status\": true,\n    \"stock\": 20,\n    \"category\": \"Components\",\n    \"thumbnails\": [\"images/psu1.jpg\"]\n  },\n  {\n    \"title\": \"Gabinete ATX\",\n    \"description\": \"Gabinete ATX con panel lateral de vidrio templado.\",\n    \"code\": \"CASE-001\",\n    \"price\": 90.00,\n    \"status\": true,\n    \"stock\": 15,\n    \"category\": \"Components\",\n    \"thumbnails\": [\"images/case1.jpg\"]\n  },\n  {\n    \"title\": \"Cámara Web HD\",\n    \"description\": \"Cámara web 1080p con micrófono integrado.\",\n    \"code\": \"CAM-001\",\n    \"price\": 40.00,\n    \"status\": true,\n    \"stock\": 35,\n    \"category\": \"Accessories\",\n    \"thumbnails\": [\"images/camera1.jpg\"]\n  },\n  {\n    \"title\": \"Auriculares Gamer\",\n    \"description\": \"Auriculares con sonido envolvente y micrófono retráctil.\",\n    \"code\": \"HEAD-001\",\n    \"price\": 70.00,\n    \"status\": true,\n    \"stock\": 18,\n    \"category\": \"Accessories\",\n    \"thumbnails\": [\"images/headset1.jpg\"]\n  },\n  {\n    \"title\": \"Impresora Multifuncional\",\n    \"description\": \"Impresora, escáner y copiadora inalámbrica.\",\n    \"code\": \"PRN-001\",\n    \"price\": 120.00,\n    \"status\": true,\n    \"stock\": 7,\n    \"category\": \"Printers\",\n    \"thumbnails\": [\"images/printer1.jpg\"]\n  },\n  {\n    \"title\": \"Tableta Gráfica\",\n    \"description\": \"Tableta gráfica con 8192 niveles de presión.\",\n    \"code\": \"TAB-001\",\n    \"price\": 95.00,\n    \"status\": true,\n    \"stock\": 14,\n    \"category\": \"Accessories\",\n    \"thumbnails\": [\"images/tablet1.jpg\"]\n  },\n  {\n    \"title\": \"Router WiFi 6\",\n    \"description\": \"Router inalámbrico de alta velocidad con WiFi 6.\",\n    \"code\": \"ROU-001\",\n    \"price\": 130.00,\n    \"status\": true,\n    \"stock\": 9,\n    \"category\": \"Networking\",\n    \"thumbnails\": [\"images/router1.jpg\"]\n  },\n  {\n    \"title\": \"SSD 500GB\",\n    \"description\": \"Unidad de estado sólido NVMe de 500GB.\",\n    \"code\": \"SSD-001\",\n    \"price\": 70.00,\n    \"status\": true,\n    \"stock\": 28,\n    \"category\": \"Storage\",\n    \"thumbnails\": [\"images/ssd1.jpg\"]\n  },\n  {\n    \"title\": \"Microfono USB\",\n    \"description\": \"Micrófono condensador USB para streaming y podcast.\",\n    \"code\": \"MIC-001\",\n    \"price\": 60.00,\n    \"status\": true,\n    \"stock\": 16,\n    \"category\": \"Accessories\",\n    \"thumbnails\": [\"images/microphone1.jpg\"]\n  },\n  {\n    \"title\": \"Control para PC\",\n    \"description\": \"Control inalámbrico compatible con PC y consolas.\",\n    \"code\": \"CTL-001\",\n    \"price\": 55.00,\n    \"status\": true,\n    \"stock\": 22,\n    \"category\": \"Accessories\",\n    \"thumbnails\": [\"images/controller1.jpg\"]\n  },\n  {\n    \"title\": \"Proyector HD\",\n    \"description\": \"Proyector portátil con resolución 1080p.\",\n    \"code\": \"PRJ-001\",\n    \"price\": 200.00,\n    \"status\": true,\n    \"stock\": 5,\n    \"category\": \"Projectors\",\n    \"thumbnails\": [\"images/projector1.jpg\"]\n  },\n  {\n    \"title\": \"Smartwatch\",\n    \"description\": \"Reloj inteligente con monitor de ritmo cardíaco.\",\n    \"code\": \"SMW-001\",\n    \"price\": 90.00,\n    \"status\": true,\n    \"stock\": 13,\n    \"category\": \"Wearables\",\n    \"thumbnails\": [\"images/smartwatch1.jpg\"]\n  },\n  {\n    \"title\": \"Cargador Rápido USB-C\",\n    \"description\": \"Cargador rápido de 65W con puerto USB-C.\",\n    \"code\": \"CHG-001\",\n    \"price\": 25.00,\n    \"status\": true,\n    \"stock\": 40,\n    \"category\": \"Accessories\",\n    \"thumbnails\": [\"images/charger1.jpg\"]\n  },\n  {\n    \"title\": \"Altavoz Bluetooth\",\n    \"description\": \"Altavoz portátil resistente al agua.\",\n    \"code\": \"SPK-001\",\n    \"price\": 45.00,\n    \"status\": true,\n    \"stock\": 27,\n    \"category\": \"Audio\",\n    \"thumbnails\": [\"images/speaker1.jpg\"]\n  },\n  {\n    \"title\": \"Lámpara LED Escritorio\",\n    \"description\": \"Lámpara LED con ajuste de brillo y temperatura.\",\n    \"code\": \"LMP-001\",\n    \"price\": 20.00,\n    \"status\": true,\n    \"stock\": 50,\n    \"category\": \"Lighting\",\n    \"thumbnails\": [\"images/lamp1.jpg\"]\n  },\n  {\n    \"title\": \"Ventilador de PC\",\n    \"description\": \"Ventilador de 120mm con iluminación RGB.\",\n    \"code\": \"FAN-001\",\n    \"price\": 15.00,\n    \"status\": true,\n    \"stock\": 60,\n    \"category\": \"Components\",\n    \"thumbnails\": [\"images/fan1.jpg\"]\n  },\n  {\n    \"title\": \"Tarjeta Madre ATX\",\n    \"description\": \"Placa base ATX compatible con procesadores Intel 12va Gen.\",\n    \"code\": \"MB-001\",\n    \"price\": 180.00,\n    \"status\": true,\n    \"stock\": 11,\n    \"category\": \"Components\",\n    \"thumbnails\": [\"images/motherboard1.jpg\"]\n  },\n  {\n    \"title\": \"Soporte para Monitor\",\n    \"description\": \"Soporte ajustable para monitor hasta 32 pulgadas.\",\n    \"code\": \"STAND-001\",\n    \"price\": 35.00,\n    \"status\": true,\n    \"stock\": 19,\n    \"category\": \"Accessories\",\n    \"thumbnails\": [\"images/stand1.jpg\"]\n  },\n  {\n    \"title\": \"Cable HDMI 4K\",\n    \"description\": \"Cable HDMI de 2 metros compatible con 4K.\",\n    \"code\": \"HDMI-001\",\n    \"price\": 10.00,\n    \"status\": true,\n    \"stock\": 80,\n    \"category\": \"Cables\",\n    \"thumbnails\": [\"images/hdmi1.jpg\"]\n  },\n  {\n    \"title\": \"Adaptador USB WiFi\",\n    \"description\": \"Adaptador inalámbrico USB WiFi de alta velocidad.\",\n    \"code\": \"WIFI-001\",\n    \"price\": 18.00,\n    \"status\": true,\n    \"stock\": 34,\n    \"category\": \"Networking\",\n    \"thumbnails\": [\"images/wifi1.jpg\"]\n  },\n  {\n    \"title\": \"Batería Portátil\",\n    \"description\": \"Power bank de 20,000 mAh con carga rápida.\",\n    \"code\": \"BAT-001\",\n    \"price\": 35.00,\n    \"status\": true,\n    \"stock\": 25,\n    \"category\": \"Accessories\",\n    \"thumbnails\": [\"images/battery1.jpg\"]\n  }\n]"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/products/bulk",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/products/bulk",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"products",
@@ -163,20 +165,18 @@
 			]
 		},
 		{
-			"name": "API Cart",
+			"name": "API Carts",
 			"item": [
 				{
-					"name": "/api/carts",
+					"name": "Create Cart",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/carts",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/carts",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"carts"
@@ -186,74 +186,161 @@
 					"response": []
 				},
 				{
-					"name": "/api/carts/:cid",
+					"name": "Get Cart by ID",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/api/carts/1",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/carts/{{cartId}}",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"carts",
-								"1"
+								"{{cartId}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "/api/carts/:cid/product/:pid",
+					"name": "Add Product to Cart",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"quantity\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"raw": "{\n  \"quantity\": 1\n}"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/carts/1/product/1",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/carts/{{cartId}}/product/{{productId}}",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "8080",
 							"path": [
 								"api",
 								"carts",
-								"1",
+								"{{cartId}}",
 								"product",
-								"1"
+								"{{productId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product Quantity in Cart",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"quantity\": 2\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/carts/{{cartId}}/products/{{productId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"{{cartId}}",
+								"products",
+								"{{productId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product from Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/carts/{{cartId}}/products/{{productId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"{{cartId}}",
+								"products",
+								"{{productId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Clear Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/carts/{{cartId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"{{cartId}}"
 							]
 						}
 					},
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		},
 		{
-			"name": "Review connection",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080",
-					"host": [
-						"localhost"
-					],
-					"port": "8080"
-				}
-			},
-			"response": []
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "productId",
+			"value": ""
+		},
+		{
+			"key": "cartId",
+			"value": ""
 		}
 	]
 }
